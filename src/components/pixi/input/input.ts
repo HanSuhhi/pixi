@@ -3,9 +3,11 @@ import p from '../../../utils/P'
 import PIXI from 'pixi.js'
 import P from '../../../utils/P';
 import { pageOrders } from '../../../libs/orders/PageOrder';
+import { MOMENT } from '../../../constant';
 
 class Input {
     private input: PIXI.Container | any;
+    private block: Boolean = false;
     constructor() {
         const input: PIXI.Container | any = new textInput({
             input: {
@@ -25,11 +27,19 @@ class Input {
         input.on("keydown", (number: number) => {
             // 回车时解析语句
             if (number === 13) {
+                // 判断语句是否为指令
                 pageOrders.forEach(v => {
                     if (v.content === this.input.text) {
                         v.func();
                     }
                 })
+                // 开关锁
+                if (this.block) return
+                this.block = true
+                setTimeout(() => {
+                    this.block = false;
+                }, MOMENT);
+                // 保存并还原值
                 P.inputValue.value = this.input.text;
                 input.text = '';
             }
@@ -39,6 +49,9 @@ class Input {
     }
     public getInput() {
         return this.input;
+    }
+    public focus() {
+        this.input.focus()
     }
     static height: number = 30;
 }

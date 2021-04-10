@@ -4,6 +4,7 @@ import p from "./P";
 export class PixiComponent {
     private eve = ""
     public regist() { }
+    public out() { }
     static setComponent(event: string, func: Handler) {
         p.EventBus.on(event, func);
         p.EventBusName = event

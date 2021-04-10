@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { HEIGHT } from '../../../libs/constant';
-import { ITexts } from '../../../libs/texts/registTexts';
+import { ITexts } from '../../../libs/texts/inputTexts';
 import { MultiText, NormalText, SystemText } from '../text/text';
 
 class Window extends PIXI.Container {
@@ -18,7 +18,7 @@ class Window extends PIXI.Container {
      * @date 31/03/2021
      * @param {(ITexts | MultiText)} text
      */
-    public addText(text: ITexts | MultiText) {
+    public async addText(text: ITexts | MultiText) {
         const _text = 'from' in text ? new SystemText(text.text, { name: text.from, color: text.color }) : text;
         // 翻页
         if (this.height + _text.height > (this.page - 1) * HEIGHT + this.pageHeight - 10) this.createNewPage()

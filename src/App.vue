@@ -2,12 +2,18 @@
   <main-component></main-component>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { onMounted } from "vue";
 import MainComponent from "./components/Main.vue";
-export default {
-  name: "App",
-  components: { MainComponent },
-};
+import input from "./components/pixi/input/input";
+onMounted(() => {
+  // 页面回车聚焦输入框
+  window.addEventListener("keydown", (key) => {
+    if (key.key === "Enter") {
+      input.focus();
+    }
+  });
+});
 </script>
 
 <style>

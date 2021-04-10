@@ -1,6 +1,7 @@
 import mitt from 'mitt';
 import * as PIXI from 'pixi.js'
 import win from '../components/pixi/window/window'
+import { COLORS } from '../libs/colors/colors';
 
 class InputValue {
     public value: string = '';
@@ -47,6 +48,13 @@ class P {
         b ? window.addEventListener("keydown", event) : window.removeEventListener("keydown", event)
     }
 
+    public showMe = async (inputValue: string) => {
+        if (!inputValue) inputValue = "没有说话"
+        const text = { text: inputValue, from: "我", color: COLORS.ME }
+        this.gameWindow.addText(text)
+        await this.sleep(300)
+    }
+
     public play() {
         this.PIXIApp.start()
     }
@@ -54,7 +62,7 @@ class P {
         this.PIXIApp.stop();
     }
     public isTrue(input: string): boolean {
-        if (input === 'y' || input === 'yes' || input === '1' || input === '') return true
+        if (input === 'y' || input === 'yes' || input === '1') return true
         return false
     }
     public sleep(time: number) {
