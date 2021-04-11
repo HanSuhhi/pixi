@@ -1,6 +1,7 @@
 import { PixiComponent } from "../../utils/PixiComponent";
 import P from "../../utils/P";
 import { keyEvents } from "./keyEvent";
+import input from "../../components/pixi/input/input";
 
 
 class Regist extends PixiComponent {
@@ -14,8 +15,10 @@ class Regist extends PixiComponent {
   public out() {
     // 取消监听键盘事件
     P.listener(false, keyEvents)
+    // 关闭cmd
+    P.stage.removeChildren()
     // 离开组件
-    PixiComponent.leave("regist", "loading")
+    PixiComponent.leave("regist", "cutscene")
   }
 }
 

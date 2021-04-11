@@ -8,11 +8,10 @@
 import RenderComponent from "./render/Render.vue";
 import ready from "../events/ready/ready";
 import regist from "../events/regist/regist";
-import { loading } from "../events/loading/loadng";
-
+import { cutscene } from "../events/cutscene/cutscene";
 Promise.resolve(ready.regist())
   .then(regist.regist.bind(regist))
-  .then(loading.regist.bind(loading));
+  .then(cutscene.regist.bind(cutscene));
 </script>
 
 <style lang="scss" scoped></style>

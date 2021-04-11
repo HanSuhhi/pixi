@@ -8,18 +8,21 @@ class Ready extends PixiComponent {
     public regist() {
         PixiComponent.setComponent('ready', this.handle.bind(this))
     }
+    public out() {
+        PixiComponent.leave("ready", "regist")
+    }
     protected async handle() {
-        p.stage.addChild(p.gameWindow)
+        // 增加指令窗口
+        p.stage.addChild(p.cmdWindow)
+        // 增加输入框
         p.stage.addChild(this.input)
         return Promise.resolve('')
             /** 游戏界面可视 */
-            .then(() => p.gameWindow.visible = true)
+            .then(() => p.cmdWindow.visible = true)
             /** 播放 */
             .then(() => p.play())
             /**离开界面 */
-            .then(
-                PixiComponent.leave.bind(this, "ready", "regist")
-            )
+            .then(this.out)
     }
 }
 

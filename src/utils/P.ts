@@ -43,7 +43,7 @@ class P {
     public EventBus = mitt()
     public EventBusName: string = ''
     public inputValue = new InputValue()
-    public gameWindow = win;
+    public cmdWindow = win;
     public listener = (b: Boolean, event: (this: Window, ev: KeyboardEvent) => any) => {
         b ? window.addEventListener("keydown", event) : window.removeEventListener("keydown", event)
     }
@@ -51,7 +51,7 @@ class P {
     public showMe = async (inputValue: string) => {
         if (!inputValue) inputValue = "没有说话"
         const text = { text: inputValue, from: "我", color: COLORS.ME }
-        this.gameWindow.addText(text)
+        this.cmdWindow.addText(text)
         await this.sleep(300)
     }
 
