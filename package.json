@@ -7,10 +7,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "gsap": "^3.6.1",
     "mitt": "^2.1.0",
     "pixi-multistyle-text": "^0.10.0",
     "pixi-text-input": "^1.0.6",
     "pixi.js": "^6.0.0",
+    "sigou-ui": "^0.0.1",
     "vue": "^3.0.5"
   },
   "devDependencies": {

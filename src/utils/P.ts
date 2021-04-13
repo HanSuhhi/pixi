@@ -1,15 +1,16 @@
 import mitt from 'mitt';
 import * as PIXI from 'pixi.js'
-import win from '../components/pixi/window/window'
+import input from "../components/pixi/input/input";
+import output from '../components/pixi/output/output'
 import { COLORS } from '../libs/colors/colors';
+import { HEIGHT, WIDTH } from '../libs/constant';
+import * as gsap from 'gsap'
 
-class InputValue {
-    public value: string = '';
-    public clearValue() {
-        this.value = ''
-    }
-}
-
+/**
+ * @description 随机生成地名
+ * @date 13/04/2021
+ * @return {*}  {string}
+ */
 function randomPlace(): string {
     const begin: string[] = [
         '赤', '鸡', '株', '长'
@@ -28,6 +29,7 @@ function getOneOfArray(arr: Array<any>) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
+const loader = new PIXI.Loader()
 
 class P {
     public width: number = 1280;
@@ -42,8 +44,12 @@ class P {
     public stage = this.PIXIApp.stage
     public EventBus = mitt()
     public EventBusName: string = ''
-    public inputValue = new InputValue()
-    public cmdWindow = win;
+    // 输入框
+    public input = input.input
+    // 文本输出
+    public output = output;
+    public gasp = gsap
+
     public listener = (b: Boolean, event: (this: Window, ev: KeyboardEvent) => any) => {
         b ? window.addEventListener("keydown", event) : window.removeEventListener("keydown", event)
     }
@@ -51,10 +57,26 @@ class P {
     public showMe = async (inputValue: string) => {
         if (!inputValue) inputValue = "没有说话"
         const text = { text: inputValue, from: "我", color: COLORS.ME }
-        this.cmdWindow.addText(text)
+        this.output.addText(text)
         await this.sleep(300)
     }
-
+    // 精灵处理
+    public loader = loader
+    public sprites: Map<string, PIXI.Sprite> = new Map();
+    public gsap = gsap;
+    /**
+     * @description 元素居中
+     * @date 13/04/2021
+     */
+    public async centered(e: PIXI.Container, box?: PIXI.Container) {
+        const width = e.width;
+        const height = e.height;
+        e.position.set(
+            box ? box.width / 2 : WIDTH / 2 - width / 2,
+            box ? box.height / 2 : HEIGHT / 2 - height / 2
+        );
+        return e
+    }
     public play() {
         this.PIXIApp.start()
     }
@@ -76,4 +98,9 @@ class P {
         return Array.from(answer)
     }
 }
-export default new P();
+
+const p = new P();
+
+
+
+export default p;

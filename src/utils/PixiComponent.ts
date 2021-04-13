@@ -2,12 +2,14 @@ import { Handler } from "mitt";
 import p from "./P";
 
 export class PixiComponent {
-    private eve = ""
+    public container = new p.PIXI.Container()
+    constructor() {
+        p.stage.addChild(this.container)
+    }
     public regist() { }
     public out() { }
     static setComponent(event: string, func: Handler) {
         p.EventBus.on(event, func);
-        p.EventBusName = event
     }
     static leave(event: string, nextEvent: string) {
         return Promise.resolve(p.EventBus)

@@ -1,19 +1,19 @@
 import textInput from 'pixi-text-input';
-import p from '../../../utils/P'
 import PIXI from 'pixi.js'
-import P from '../../../utils/P';
 import { pageOrders } from '../../../libs/orders/PageOrder';
 import { MOMENT } from '../../../constant';
+import { HEIGHT, WIDTH } from '../../../libs/constant';
 
 class Input {
-    private input: PIXI.Container | any;
+    public input: PIXI.Container | any;
+    public value: string = '';
     private block: Boolean = false;
     constructor() {
         const input: PIXI.Container | any = new textInput({
             input: {
                 fontSize: '14pt',
                 padding: '4px',
-                width: `${p.width}px`,
+                width: `${WIDTH}px`,
                 color: "#F9F1A5"
             },
             box: {
@@ -40,15 +40,12 @@ class Input {
                     this.block = false;
                 }, MOMENT);
                 // 保存并还原值
-                P.inputValue.value = this.input.text;
+                this.value = this.input.text;
                 input.text = '';
             }
         })
-        input.position.set(undefined, p.height - input.height)
+        input.position.set(undefined, HEIGHT - input.height)
         this.input = input;
-    }
-    public getInput() {
-        return this.input;
     }
     public focus() {
         this.input.focus()

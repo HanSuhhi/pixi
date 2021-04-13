@@ -1,28 +1,22 @@
 import p from '../../utils/P'
 import { PixiComponent } from "../../utils/PixiComponent";
-import inputComponent from '../../components/pixi/input/input'
-import P from '../../utils/P';
+import pixi from '../../assets/pixi.png';
 
 class Ready extends PixiComponent {
-    private input = inputComponent.getInput()
-    public regist() {
+    public async regist() {
         PixiComponent.setComponent('ready', this.handle.bind(this))
     }
     public out() {
-        PixiComponent.leave("ready", "regist")
+        PixiComponent.leave("ready", "cutscene")
     }
     protected async handle() {
-        // 增加指令窗口
-        p.stage.addChild(p.cmdWindow)
-        // 增加输入框
-        p.stage.addChild(this.input)
-        return Promise.resolve('')
-            /** 游戏界面可视 */
-            .then(() => p.cmdWindow.visible = true)
-            /** 播放 */
-            .then(() => p.play())
-            /**离开界面 */
-            .then(this.out)
+        p.EventBusName = 'ready'
+        p.loader.add(
+            'pixi', pixi
+        ).load((_, res) => {
+            console.log('图片加载完成');
+            p.sprites.set("pixi", new p.PIXI.Sprite(res['pixi'].texture))
+        }).onComplete.add(this.out)
     }
 }
 

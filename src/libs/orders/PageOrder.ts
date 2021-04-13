@@ -1,5 +1,5 @@
 import { Order } from './order'
-const window = Order.window;
+const output = Order.output;
 
 class PageOrder extends Order {
     constructor(content: string, desc: string, func: Function) {
@@ -9,9 +9,9 @@ class PageOrder extends Order {
 
 export const pageOrders: Array<PageOrder> = [
     new PageOrder("page last", "返回上一页", () => {
-        window.changePage()
+        output.changePage()
     }),
     new PageOrder("page next", '查看下一页', () => {
-        window.changePage(window.pageNow + 1)
+        output.changePage(output.pageNow + 1)
     })
 ]

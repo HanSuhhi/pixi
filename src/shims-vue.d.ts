@@ -8,3 +8,5 @@ declare module 'pixi-text-input' {
   const input: any;
   export default input
 }
+
+declare module 'sss-ui-test'

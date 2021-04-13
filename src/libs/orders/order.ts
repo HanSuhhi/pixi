@@ -1,4 +1,4 @@
-import w from './../../components/pixi/window/window'
+import o from '../../components/pixi/output/output'
 /**
  * @description 指令类
  * @date 09/04/2021
@@ -6,7 +6,7 @@ import w from './../../components/pixi/window/window'
  * @class Order
  */
 export class Order {
-    static window = w
+    static output = o
     constructor(
         public content: string,
         public desc: string,
