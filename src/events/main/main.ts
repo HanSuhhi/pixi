@@ -1,16 +1,28 @@
 import P from "../../utils/P";
-import { PixiComponent } from "../../utils/PixiComponent";
+import { PixiEvent } from "../../utils/PixiEvent";
+import mainFirstBox from '../../components/pixi/main/first/first'
+import mainSecondBox from '../../components/pixi/main/second/second'
+import mainThirdBox from '../../components/pixi/main/third/third'
+import SpriteStore from "../../utils/SpriteStore";
 
-class Main extends PixiComponent {
+class Main extends PixiEvent {
     public regist() {
-        PixiComponent.setComponent("main", this.handle.bind(this))
+        PixiEvent.setComponent("main", this.handle.bind(this))
     }
     public out() {
-        PixiComponent.leave("main", "_")
+        PixiEvent.leave("main", "_")
     }
     private handle() {
         P.EventBusName = 'main'
-        console.log(1);
+
+        // 增加输入
+        P.stage.addChild(P.input)
+        // 增加第一区域
+        P.stage.addChild(mainFirstBox)
+        // 增加第二区域
+        P.stage.addChild(mainSecondBox)
+        // 增加第三区域
+        P.stage.addChild(mainThirdBox)
     }
 }
 

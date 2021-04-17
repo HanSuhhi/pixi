@@ -1,17 +1,18 @@
 import { Sprite } from "pixi.js";
 import P from "../../utils/P";
-import { PixiComponent } from "../../utils/PixiComponent";
+import { PixiEvent } from "../../utils/PixiEvent";
 
-class Cutscene extends PixiComponent {
+class Cutscene extends PixiEvent {
     public regist() {
-        PixiComponent.setComponent("cutscene", this.handle.bind(this))
+        PixiEvent.setComponent("cutscene", this.handle.bind(this))
     }
     public out() {
-        PixiComponent.leave("cutscene", "main")
+        PixiEvent.leave("cutscene", "main")
     }
     private handle() {
         P.EventBusName = 'cutscene'
-        const pixi = P.sprites.get('pixi') as Sprite
+        P.stage.addChild(this.container);
+        const pixi = P.sprites.stores.base.get('pixi') as Sprite
         P.centered(pixi).then(res => this.container.addChild(res))
         P.gsap.TweenMax.fromTo(pixi, 2, { alpha: 0 }, { alpha: 1, yoyo: true, repeat: 1 }).then(this.out)
     }

@@ -1,11 +1,9 @@
 import { Handler } from "mitt";
 import p from "./P";
 
-export class PixiComponent {
+export class PixiEvent {
     public container = new p.PIXI.Container()
-    constructor() {
-        p.stage.addChild(this.container)
-    }
+    constructor() { }
     public regist() { }
     public out() { }
     static setComponent(event: string, func: Handler) {
@@ -13,6 +11,7 @@ export class PixiComponent {
     }
     static leave(event: string, nextEvent: string) {
         return Promise.resolve(p.EventBus)
+            .then(() => p.stage.removeChildren())
             .then(() => p.EventBus.all.delete(event))
             .then(() => p.EventBus.emit(nextEvent))
     }

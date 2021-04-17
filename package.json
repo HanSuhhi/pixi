@@ -7,6 +7,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@pixi/filter-ascii": "^4.0.0",
+    "@pixi/filter-emboss": "^4.0.0",
     "gsap": "^3.6.1",
     "mitt": "^2.1.0",
     "pixi-multistyle-text": "^0.10.0",

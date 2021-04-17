@@ -1,11 +1,11 @@
-import { PixiComponent } from "../../utils/PixiComponent";
+import { PixiEvent } from "../../utils/PixiEvent";
 import P from "../../utils/P";
 import { keyEvents } from "./keyEvent";
 
 
-class Regist extends PixiComponent {
+class Regist extends PixiEvent {
   public async regist() {
-    PixiComponent.setComponent("regist", this.handle.bind(this))
+    PixiEvent.setComponent("regist", this.handle.bind(this))
   }
   protected handle() {
     P.EventBusName = 'regist'
@@ -23,7 +23,7 @@ class Regist extends PixiComponent {
     P.stage.removeChild(P.output)
     P.stage.removeChild(P.input)
     // 离开组件
-    PixiComponent.leave("regist", "cutscene")
+    PixiEvent.leave("regist", "cutscene")
   }
 }
 

@@ -5,6 +5,8 @@ import output from '../components/pixi/output/output'
 import { COLORS } from '../libs/colors/colors';
 import { HEIGHT, WIDTH } from '../libs/constant';
 import * as gsap from 'gsap'
+import pLoader from './Loader';
+import spriteStore from './SpriteStore'
 
 /**
  * @description 随机生成地名
@@ -28,8 +30,6 @@ function randomPlace(): string {
 function getOneOfArray(arr: Array<any>) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
-
-const loader = new PIXI.Loader()
 
 class P {
     public width: number = 1280;
@@ -60,9 +60,9 @@ class P {
         this.output.addText(text)
         await this.sleep(300)
     }
-    // 精灵处理
-    public loader = loader
-    public sprites: Map<string, PIXI.Sprite> = new Map();
+    // 存放精灵
+    public loader = pLoader
+    public sprites = spriteStore;
     public gsap = gsap;
     /**
      * @description 元素居中
@@ -72,9 +72,11 @@ class P {
         const width = e.width;
         const height = e.height;
         e.position.set(
-            box ? box.width / 2 : WIDTH / 2 - width / 2,
-            box ? box.height / 2 : HEIGHT / 2 - height / 2
+            (box ? box.width / 2 : WIDTH / 2) - width / 2,
+            (box ? box.height / 2 : HEIGHT / 2) - height / 2
         );
+        console.log(box!.height / 2 - height / 2);
+
         return e
     }
     public play() {

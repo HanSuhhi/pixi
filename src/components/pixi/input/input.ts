@@ -50,7 +50,6 @@ class Input {
     public focus() {
         this.input.focus()
     }
-    static height: number = 30;
 }
 
 export default new Input()
